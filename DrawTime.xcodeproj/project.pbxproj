@@ -15,6 +15,9 @@
 		5272E0681EE8928200C1C4D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5272E0661EE8928200C1C4D0 /* LaunchScreen.storyboard */; };
 		5272E0731EE8928200C1C4D0 /* DrawTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5272E0721EE8928200C1C4D0 /* DrawTimeTests.swift */; };
 		5272E07E1EE8928200C1C4D0 /* DrawTimeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5272E07D1EE8928200C1C4D0 /* DrawTimeUITests.swift */; };
+		8047C43BE2630BBD3814CA15 /* Pods_DrawTimeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4122B26CE051F7F49451E81D /* Pods_DrawTimeUITests.framework */; };
+		CF413A7036FD6A85B38F52A1 /* Pods_DrawTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A3208FD17B2B622D917B14A /* Pods_DrawTime.framework */; };
+		DF6B42ACD4DF22ECE7CC32E9 /* Pods_DrawTimeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1706FA2F70C7A05D73F8475 /* Pods_DrawTimeTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +38,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2A3208FD17B2B622D917B14A /* Pods_DrawTime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DrawTime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3346C85F65E027DA69A1C9F2 /* Pods-DrawTimeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawTimeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DrawTimeUITests/Pods-DrawTimeUITests.release.xcconfig"; sourceTree = "<group>"; };
+		37DDF3105912AB526F68EF89 /* Pods-DrawTimeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawTimeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DrawTimeTests/Pods-DrawTimeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3D9C980C6897FB05BECA1480 /* Pods-DrawTime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawTime.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DrawTime/Pods-DrawTime.debug.xcconfig"; sourceTree = "<group>"; };
+		4122B26CE051F7F49451E81D /* Pods_DrawTimeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DrawTimeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		42F6CA369AD04EF98F48B144 /* Pods-DrawTimeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawTimeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DrawTimeTests/Pods-DrawTimeTests.release.xcconfig"; sourceTree = "<group>"; };
 		5272E0581EE8928200C1C4D0 /* DrawTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5272E05B1EE8928200C1C4D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5272E05D1EE8928200C1C4D0 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -49,6 +58,10 @@
 		5272E0791EE8928200C1C4D0 /* DrawTimeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawTimeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5272E07D1EE8928200C1C4D0 /* DrawTimeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawTimeUITests.swift; sourceTree = "<group>"; };
 		5272E07F1EE8928200C1C4D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5272E08B1EE8A8E100C1C4D0 /* DrawTime.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DrawTime.entitlements; sourceTree = "<group>"; };
+		7C9E2524EDF1660F95268FC4 /* Pods-DrawTimeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawTimeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DrawTimeUITests/Pods-DrawTimeUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		91FA91E3A8C7D083E2435B3C /* Pods-DrawTime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DrawTime.release.xcconfig"; path = "Pods/Target Support Files/Pods-DrawTime/Pods-DrawTime.release.xcconfig"; sourceTree = "<group>"; };
+		A1706FA2F70C7A05D73F8475 /* Pods_DrawTimeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DrawTimeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF413A7036FD6A85B38F52A1 /* Pods_DrawTime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF6B42ACD4DF22ECE7CC32E9 /* Pods_DrawTimeTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +85,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8047C43BE2630BBD3814CA15 /* Pods_DrawTimeUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C0024F7F2381E22720CDAEE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A3208FD17B2B622D917B14A /* Pods_DrawTime.framework */,
+				A1706FA2F70C7A05D73F8475 /* Pods_DrawTimeTests.framework */,
+				4122B26CE051F7F49451E81D /* Pods_DrawTimeUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		5272E04F1EE8928200C1C4D0 = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +109,8 @@
 				5272E0711EE8928200C1C4D0 /* DrawTimeTests */,
 				5272E07C1EE8928200C1C4D0 /* DrawTimeUITests */,
 				5272E0591EE8928200C1C4D0 /* Products */,
+				6803E39EF462F0022C75FAEC /* Pods */,
+				0C0024F7F2381E22720CDAEE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,6 +127,7 @@
 		5272E05A1EE8928200C1C4D0 /* DrawTime */ = {
 			isa = PBXGroup;
 			children = (
+				5272E08B1EE8A8E100C1C4D0 /* DrawTime.entitlements */,
 				5272E05B1EE8928200C1C4D0 /* AppDelegate.swift */,
 				5272E05D1EE8928200C1C4D0 /* art.scnassets */,
 				5272E05F1EE8928200C1C4D0 /* ViewController.swift */,
@@ -128,6 +157,19 @@
 			path = DrawTimeUITests;
 			sourceTree = "<group>";
 		};
+		6803E39EF462F0022C75FAEC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3D9C980C6897FB05BECA1480 /* Pods-DrawTime.debug.xcconfig */,
+				91FA91E3A8C7D083E2435B3C /* Pods-DrawTime.release.xcconfig */,
+				37DDF3105912AB526F68EF89 /* Pods-DrawTimeTests.debug.xcconfig */,
+				42F6CA369AD04EF98F48B144 /* Pods-DrawTimeTests.release.xcconfig */,
+				7C9E2524EDF1660F95268FC4 /* Pods-DrawTimeUITests.debug.xcconfig */,
+				3346C85F65E027DA69A1C9F2 /* Pods-DrawTimeUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +177,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5272E0821EE8928200C1C4D0 /* Build configuration list for PBXNativeTarget "DrawTime" */;
 			buildPhases = (
+				9C48935748073B4D612A9AE4 /* [CP] Check Pods Manifest.lock */,
 				5272E0541EE8928200C1C4D0 /* Sources */,
 				5272E0551EE8928200C1C4D0 /* Frameworks */,
 				5272E0561EE8928200C1C4D0 /* Resources */,
+				F1C3ABA125DB68DFB9905F38 /* [CP] Embed Pods Frameworks */,
+				F684324855BF41DABA1DE549 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -152,9 +197,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5272E0851EE8928200C1C4D0 /* Build configuration list for PBXNativeTarget "DrawTimeTests" */;
 			buildPhases = (
+				3335C227AF3EC00E536B3BB6 /* [CP] Check Pods Manifest.lock */,
 				5272E06A1EE8928200C1C4D0 /* Sources */,
 				5272E06B1EE8928200C1C4D0 /* Frameworks */,
 				5272E06C1EE8928200C1C4D0 /* Resources */,
+				52EAD5051EE8B187006D41DA /* ShellScript */,
+				48225D1CD7E0531B308E6FF8 /* [CP] Embed Pods Frameworks */,
+				CB44EB558771CD2C57A141B8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -170,9 +219,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5272E0881EE8928200C1C4D0 /* Build configuration list for PBXNativeTarget "DrawTimeUITests" */;
 			buildPhases = (
+				E1C27FAA23FE0568E292FEC1 /* [CP] Check Pods Manifest.lock */,
 				5272E0751EE8928200C1C4D0 /* Sources */,
 				5272E0761EE8928200C1C4D0 /* Frameworks */,
 				5272E0771EE8928200C1C4D0 /* Resources */,
+				757D8C5B1D20F8AB3EB9AE2C /* [CP] Embed Pods Frameworks */,
+				BE9CE512AB4BEB523658F352 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -196,6 +248,11 @@
 				TargetAttributes = {
 					5272E0571EE8928200C1C4D0 = {
 						CreatedOnToolsVersion = 9.0;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					5272E06D1EE8928200C1C4D0 = {
 						CreatedOnToolsVersion = 9.0;
@@ -254,6 +311,157 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3335C227AF3EC00E536B3BB6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		48225D1CD7E0531B308E6FF8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DrawTimeTests/Pods-DrawTimeTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		52EAD5051EE8B187006D41DA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "bash \"${BUILT_PRODUCTS_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework/strip-frameworks.sh\"";
+		};
+		757D8C5B1D20F8AB3EB9AE2C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DrawTimeUITests/Pods-DrawTimeUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9C48935748073B4D612A9AE4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BE9CE512AB4BEB523658F352 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DrawTimeUITests/Pods-DrawTimeUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CB44EB558771CD2C57A141B8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DrawTimeTests/Pods-DrawTimeTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E1C27FAA23FE0568E292FEC1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F1C3ABA125DB68DFB9905F38 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DrawTime/Pods-DrawTime-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F684324855BF41DABA1DE549 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-DrawTime/Pods-DrawTime-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5272E0541EE8928200C1C4D0 /* Sources */ = {
@@ -421,9 +629,15 @@
 		};
 		5272E0831EE8928200C1C4D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D9C980C6897FB05BECA1480 /* Pods-DrawTime.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DrawTime/DrawTime.entitlements;
 				DEVELOPMENT_TEAM = JQ28K6Y7JE;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = DrawTime/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Cheeky.DrawTime;
@@ -435,9 +649,15 @@
 		};
 		5272E0841EE8928200C1C4D0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91FA91E3A8C7D083E2435B3C /* Pods-DrawTime.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DrawTime/DrawTime.entitlements;
 				DEVELOPMENT_TEAM = JQ28K6Y7JE;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = DrawTime/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Cheeky.DrawTime;
@@ -449,10 +669,12 @@
 		};
 		5272E0861EE8928200C1C4D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 37DDF3105912AB526F68EF89 /* Pods-DrawTimeTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = JQ28K6Y7JE;
+				FRAMEWORK_SEARCH_PATHS = RealmSwift.framework;
 				INFOPLIST_FILE = DrawTimeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Cheeky.DrawTimeTests;
@@ -465,10 +687,12 @@
 		};
 		5272E0871EE8928200C1C4D0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42F6CA369AD04EF98F48B144 /* Pods-DrawTimeTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = JQ28K6Y7JE;
+				FRAMEWORK_SEARCH_PATHS = RealmSwift.framework;
 				INFOPLIST_FILE = DrawTimeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Cheeky.DrawTimeTests;
@@ -481,6 +705,7 @@
 		};
 		5272E0891EE8928200C1C4D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C9E2524EDF1660F95268FC4 /* Pods-DrawTimeUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = JQ28K6Y7JE;
@@ -496,6 +721,7 @@
 		};
 		5272E08A1EE8928200C1C4D0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3346C85F65E027DA69A1C9F2 /* Pods-DrawTimeUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = JQ28K6Y7JE;
@@ -528,6 +754,7 @@
 				5272E0841EE8928200C1C4D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5272E0851EE8928200C1C4D0 /* Build configuration list for PBXNativeTarget "DrawTimeTests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +763,7 @@
 				5272E0871EE8928200C1C4D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5272E0881EE8928200C1C4D0 /* Build configuration list for PBXNativeTarget "DrawTimeUITests" */ = {
 			isa = XCConfigurationList;
@@ -544,6 +772,7 @@
 				5272E08A1EE8928200C1C4D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
