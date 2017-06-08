@@ -29,7 +29,6 @@ class DrawNode: SKNode {
         path.move(to: pos)
         line.path = path.cgPath
         line.strokeColor = UIColor.red
-        line.lineWidth = 3
         points.append(pos)
     }
     

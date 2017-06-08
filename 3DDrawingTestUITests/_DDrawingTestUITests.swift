@@ -1,14 +1,14 @@
 //
-//  DrawTimeUITests.swift
-//  DrawTimeUITests
+//  _DDrawingTestUITests.swift
+//  3DDrawingTestUITests
 //
-//  Created by John Kotz on 6/7/17.
-//  Copyright © 2017 Cheeky WWDC. All rights reserved.
+//  Created by Taketomo Isazawa on 8/6/17.
+//  Copyright © 2017 Taketomo Isazawa. All rights reserved.
 //
 
 import XCTest
 
-class DrawTimeUITests: XCTestCase {
+class _DDrawingTestUITests: XCTestCase {
         
     override func setUp() {
         super.setUp()

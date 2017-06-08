@@ -1,9 +1,9 @@
 //
 //  AppDelegate.swift
-//  DrawTime
+//  3DDrawingTest
 //
-//  Created by John Kotz on 6/7/17.
-//  Copyright © 2017 Cheeky WWDC. All rights reserved.
+//  Created by Taketomo Isazawa on 8/6/17.
+//  Copyright © 2017 Taketomo Isazawa. All rights reserved.
 //
 
 import UIKit
