@@ -9,7 +9,7 @@
 import SpriteKit
 import GameplayKit
 
-class PathNode: SKNode {
+class DrawNode: SKNode {
     private var path = UIBezierPath()
     private var line = SKShapeNode()
     private var nodes = [SKSpriteNode]()

@@ -10,10 +10,10 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    var pathScene = PathNode()
+    var pathScene = DrawNode()
     
     override func didMove(to view: SKView) {
-        pathScene = PathNode()
+        pathScene = DrawNode()
         pathScene.position = view.frame.origin
         self.addChild(pathScene)
     }
