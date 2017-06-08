@@ -13,7 +13,7 @@ class GameScene: SKScene {
     var pathScene = DrawNode()
     
     override func didMove(to view: SKView) {
-        pathScene = DrawNode()
+        pathScene = DrawNode(view: view)
         pathScene.position = view.frame.origin
         self.addChild(pathScene)
     }
