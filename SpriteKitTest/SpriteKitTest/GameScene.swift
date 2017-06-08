@@ -14,48 +14,33 @@ class GameScene: SKScene {
     private var spinnyNode : SKShapeNode?
     private var lastDrawn: CGPoint?
     private var lastDir: CGVector?
-    private var path = CGMutablePath()
+    private var path = UIBezierPath()
     private var line = SKShapeNode()
     private var nodes = [SKSpriteNode]()
     private var points = [CGPoint]()
     
     override func didMove(to view: SKView) {
-        line.path = path
+        line.path = path.cgPath
         line.strokeColor = UIColor.red
         self.addChild(line)
     }
     
     func touchDown(atPoint pos : CGPoint) {
-        let delta = lastDrawn != nil ? abs(lastDrawn!.x - pos.x) + abs(lastDrawn!.y - pos.y) : nil
-        
-        if delta == nil || delta! > 15 {
-            path.move(to: pos)
-            line.path = path
-            points.append(pos)
-            lastDrawn = pos
-        }
+        path.move(to: pos)
+        line.path = path.cgPath
+        points.append(pos)
     }
     
     func touchMoved(toPoint pos : CGPoint) {
-        let delta = lastDrawn != nil ? abs(lastDrawn!.x - pos.x) + abs(lastDrawn!.y - pos.y) : nil
-        
-        if delta == nil || delta! > 15 {
-            path.addLine(to: pos)
-            line.path = path
-            points.append(pos)
-            lastDrawn = pos
-        }
+        path.addLine(to: pos)
+        line.path = path.cgPath
+        points.append(pos)
     }
     
     func touchUp(atPoint pos : CGPoint) {
-        let delta = lastDrawn != nil ? abs(lastDrawn!.x - pos.x) + abs(lastDrawn!.y - pos.y) : nil
-        
-        if delta == nil || delta! > 15 {
-            path.addLine(to: pos)
-            line.path = path
-            points.append(pos)
-            lastDrawn =  nil
-        }
+       path.addLine(to: pos)
+        line.path = path.cgPath
+        points.append(pos)
         
         self.competePath()
     }
@@ -67,8 +52,8 @@ class GameScene: SKScene {
         nodes.append(sprite)
         self.addChild(sprite)
         
-        path = CGMutablePath()
-        line.path = path
+        path = UIBezierPath()
+        line.path = path.cgPath
         line.zPosition += 1
         line.strokeColor = UIColor.red
     }
