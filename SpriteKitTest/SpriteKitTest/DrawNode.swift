@@ -18,7 +18,12 @@ class DrawNode: SKNode {
     
     var containingView: SKView?
     
-    override init(view: SKView) {
+    override init() {
+        super.init()
+        self.addChild(line)
+    }
+    
+    init(view: SKView) {
         super.init()
         containingView = view
         self.addChild(line)
@@ -52,7 +57,7 @@ class DrawNode: SKNode {
     
     func competePath() {
         line.strokeColor = UIColor.yellow
-        let sprite = SKSpriteNode(texture: containingView?.texture(from: line))
+        let sprite = SKSpriteNode(texture: (self.containingView ?? SKView()).texture(from: line))
         sprite.position = CGPoint(x: line.frame.origin.x + line.frame.width / 2, y: line.frame.origin.y + line.frame.height / 2)
         nodes.append(sprite)
         self.addChild(sprite)
