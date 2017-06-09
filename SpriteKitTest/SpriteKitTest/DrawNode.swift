@@ -10,6 +10,10 @@ import SpriteKit
 import GameplayKit
 
 class DrawNode: SKNode, DataEngineDelegate {
+    func drawNode(_ node: SKSpriteNode) {
+        
+    }
+    
     
     // Store the path in a Bezier path
     private var path = UIBezierPath()
@@ -94,7 +98,7 @@ class DrawNode: SKNode, DataEngineDelegate {
     
     func competePath() {
         self.drawPoints(self.points)
-        dataEngine.sendPoints(self.points)
+//        dataEngine.sendPoints(self.points)
         
         // Reset the path and move the line on top of the new nodes
         path = UIBezierPath()
