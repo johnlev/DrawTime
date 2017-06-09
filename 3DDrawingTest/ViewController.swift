@@ -13,7 +13,8 @@ import ARKit
 import Foundation
 import MultipeerConnectivity
 
-class ViewController: UIViewController, ARSCNViewDelegate, DrawNodeDelegate {
+class ViewController: UIViewController, DrawNodeDelegate {
+    
     func addUser(name: String, color: UIColor, peerID: MCPeerID) {
         self.delegate.addUser(name: name, color: color, peerID: peerID)
     }
@@ -25,12 +26,19 @@ class ViewController: UIViewController, ARSCNViewDelegate, DrawNodeDelegate {
     var color: UIColor!
     var delegate: DrawingViewControllerDelegate!
     
-    var drawNode: DrawNode!
     var canvasTexture: SKScene = SKScene()
     var canvasNode = SCNNode()
     let extent = CGFloat(1200)
     // TODO: Convert canvasTexture into a let that's set ini init
     @IBOutlet var sceneView: ARSCNView!
+    
+    var extentx = CGFloat(0.6)
+    var extentz = CGFloat(0.6)
+    
+    let session = ARSession()
+    var sessionConfig = ARWorldTrackingSessionConfiguration()
+    
+    var drawNode: DrawNode?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,27 +48,7 @@ class ViewController: UIViewController, ARSCNViewDelegate, DrawNodeDelegate {
         
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
-        
-        // Create a new scene
-        //let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        
-        // Set the scene to the view
-        let scene = SCNScene()
-        let light = SCNLight()
-        light.color = UIColor.green
-        light.type = SCNLight.LightType.omni
-        //light.castsShadow = true
-        light.spotInnerAngle = CGFloat(2 * Double.pi)
-        
-        sceneView.scene = scene
-        canvasTexture = SKScene(size: CGSize(width: extent, height: extent))
-//        canvasTexture.backgroundColor = UIColor.clear
-        
-        drawNode = DrawNode(name: self.name, color: self.color)
-        
-        drawNode.position = CGPoint(x:0.0, y:0.0)
-        drawNode.color = self.color
-        drawNode.delegate = self
+        setupScene()
         
         switch self.color {
         case UIColor.yellow:
@@ -76,17 +64,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, DrawNodeDelegate {
         }
         
         
-        drawNode.userName = self.name
-        drawNode.containingView = canvasTexture.view
-        canvasTexture.addChild(drawNode)
-        let canvasGeometry = SCNPlane()
-        canvasGeometry.height = 1.0
-        canvasGeometry.width = 1.0
-        canvasGeometry.firstMaterial?.diffuse.contents = canvasTexture
-        canvasGeometry.firstMaterial?.isDoubleSided = true
-        canvasNode.geometry = canvasGeometry
-        canvasNode.position = SCNVector3(0,0,-2.0)
-        scene.rootNode.addChildNode(canvasNode)
         
     }
     
@@ -95,11 +72,12 @@ class ViewController: UIViewController, ARSCNViewDelegate, DrawNodeDelegate {
         
         // Create a session configuration
         let configuration = ARWorldTrackingSessionConfiguration()
+        configuration.planeDetection = .horizontal
+        
+        sceneView.session.delegate = self
         
         // Run the view's session
         sceneView.session.run(configuration)
-        
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -108,6 +86,52 @@ class ViewController: UIViewController, ARSCNViewDelegate, DrawNodeDelegate {
         // Pause the view's session
         sceneView.session.pause()
     }
+    
+    func setupScene() {
+        sceneView.delegate = self
+        sceneView.session = session
+    }
+    
+    func restartPlaneDetection() {
+        
+    }
+    
+    
+    fileprivate func setupPlane(at: SCNVector3) {
+        // Create a new scene
+        //let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        
+        // Set the scene to the view
+        let scene = SCNScene()
+        let light = SCNLight()
+        light.color = UIColor.yellow
+        light.type = SCNLight.LightType.omni
+        //light.castsShadow = true
+        light.spotInnerAngle = CGFloat(2 * Double.pi)
+        
+        drawNode = DrawNode(name: self.name, color: self.color)
+        drawNode!.userName = self.name
+        drawNode!.color = self.color
+        drawNode!.containingView = canvasTexture.view
+        drawNode!.containingView = canvasTexture.view
+        sceneView.scene = scene
+        canvasTexture = SKScene(size: CGSize(width: extentx * 600, height: extentz * 600))
+        canvasTexture.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
+        drawNode!.position = CGPoint(x:0.0, y:0.0)
+        canvasTexture.addChild(drawNode!)
+        
+        let canvasGeometry = SCNPlane()
+        canvasGeometry.height = extentz
+        canvasGeometry.width = extentx
+        canvasGeometry.firstMaterial?.diffuse.contents = canvasTexture
+        canvasGeometry.firstMaterial?.isDoubleSided = true
+        canvasNode.geometry = canvasGeometry
+        canvasNode.position = at
+        canvasNode.eulerAngles = SCNVector3(Double.pi/2, 0, 0)
+        scene.rootNode.addChildNode(canvasNode)
+        
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -140,51 +164,68 @@ class ViewController: UIViewController, ARSCNViewDelegate, DrawNodeDelegate {
         
     }
     
+}
+
+extension ViewController: ARSCNViewDelegate {
+    
     //    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-    //        // This visualization covers only detected planes.
-    //        guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
-    //
-    //        // Create a SceneKit plane to visualize the node using its position and extent.
-    //        let plane = SCNPlane(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
-    //        let planeNode = SCNNode(geometry: plane)
-    //        planeNode.position = SCNVector3Make(planeAnchor.center.x, 0, planeAnchor.center.z)
-    //
-    //        // SCNPlanes are vertically oriented in their local coordinate space.
-    //        // Rotate it to match the horizontal orientation of the ARPlaneAnchor.
-    //        planeNode.transform = SCNMatrix4MakeRotation(-Float.pi / 2, 1, 0, 0)
-    //
-    //        // ARKit owns the node corresponding to the anchor, so make the plane a child node.
-    //        node.addChildNode(planeNode)
+    //        print("TRIGGERED")
     //    }
     
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        // This visualization covers only detected planes.
+        print("**Plane detected!")
+        if drawNode == nil{
+            DispatchQueue.main.async {
+                guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
+                
+                // Create a SceneKit plane to visualize the node using its position and extent.
+                let location = SCNVector3.positionFromTransform(planeAnchor.transform)
+                self.extentz = CGFloat(planeAnchor.extent.z * 10)
+                self.extentx = CGFloat(planeAnchor.extent.x * 10)
+                self.setupPlane(at: location)
+                print(String(describing: location), String(describing: self.extentx), String(describing:self.extentz))
+            }
+        }
+        
+    }
+}
+
+extension ViewController: ARSessionDelegate{
+    
+}
+
+extension ViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let coord = self.sceneView.hitTest((touches.first?.location(in: self.sceneView))!, options: nil)
         if coord.count > 0{
-            let drawingCoord = CGPoint( x: coord[0].textureCoordinates(withMappingChannel: 0).x * extent,
-                                        y: coord[0].textureCoordinates(withMappingChannel: 0).y * extent)
-            self.drawNode.touchDown(atPoint: drawingCoord)
+            let drawingCoord = CGPoint( x: coord[0].textureCoordinates(withMappingChannel: 0).x * extentx * 600,
+                                        y: coord[0].textureCoordinates(withMappingChannel: 0).y * extentz * 600)
+            self.drawNode!.touchDown(atPoint: drawingCoord)
             print(drawingCoord)
         }
+        //        else{
+        //            self.setupPlane(at: SCNVector3(-0.5, -0.5, 0.0))
+        //        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let coord = self.sceneView.hitTest((touches.first?.location(in: self.sceneView))!, options: nil)
         if coord.count > 0{
-            let drawingCoord = CGPoint( x: coord[0].textureCoordinates(withMappingChannel: 0).x * extent,
-                                        y: coord[0].textureCoordinates(withMappingChannel: 0).y * extent)
-            self.drawNode.touchMoved(toPoint: drawingCoord)
+            let drawingCoord = CGPoint( x: coord[0].textureCoordinates(withMappingChannel: 0).x * extentx * 600,
+                                        y: coord[0].textureCoordinates(withMappingChannel: 0).y * extentz * 600)
+            self.drawNode!.touchMoved(toPoint: drawingCoord)
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let coord = self.sceneView.hitTest((touches.first?.location(in: self.sceneView))!, options: nil)
         if coord.count > 0{
-            let drawingCoord = CGPoint( x: coord[0].textureCoordinates(withMappingChannel: 0).x * extent,
-                                        y: coord[0].textureCoordinates(withMappingChannel: 0).y * extent)
-            self.drawNode.touchUp(atPoint: drawingCoord)
+            let drawingCoord = CGPoint( x: coord[0].textureCoordinates(withMappingChannel: 0).x * extentx * 600,
+                                        y: coord[0].textureCoordinates(withMappingChannel: 0).y * extentz * 600)
+            self.drawNode!.touchUp(atPoint: drawingCoord)
         }
     }
-    
 }
 
 protocol DrawingViewControllerDelegate {
