@@ -110,6 +110,7 @@ class ViewController: UIViewController, DrawNodeDelegate {
         light.spotInnerAngle = CGFloat(2 * Double.pi)
         
         drawNode = DrawNode(name: self.name, color: self.color)
+        drawNode!.delegate = self
         drawNode!.userName = self.name
         drawNode!.color = self.color
         drawNode!.containingView = canvasTexture.view
