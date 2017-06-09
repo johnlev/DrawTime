@@ -25,8 +25,6 @@ class ViewController: UIViewController, ARSCNViewDelegate, DrawNodeDelegate {
     var color: UIColor!
     var delegate: DrawingViewControllerDelegate!
     
-    let astroUnit:CGFloat = 0.2
-    let earthRadius:CGFloat = 0.01
     var drawNode: DrawNode!
     var canvasTexture: SKScene = SKScene()
     var canvasNode = SCNNode()
@@ -192,27 +190,5 @@ class ViewController: UIViewController, ARSCNViewDelegate, DrawNodeDelegate {
 protocol DrawingViewControllerDelegate {
     func addUser(name: String, color: UIColor, peerID: MCPeerID)
     func removeUser(peerID: MCPeerID)
-}
-
-extension SCNVector3{
-    static func fromRadial(r:Double, theta:Double, inclination:Double) -> SCNVector3 {
-        let thetaRad = theta * M_PI / 180.0
-        let inclinationRad = inclination * M_PI / 180.0
-        let rho = r * cos(inclinationRad)
-        let z = r * sin(inclinationRad)
-        let x = rho * cos(thetaRad)
-        let y = rho * sin(thetaRad)
-        return SCNVector3(x, y, z)
-    }
-    
-    static func initialLocation(r: Double, inclination: Double) -> SCNVector3{
-        return SCNVector3.fromRadial(r: r, theta: 0.0, inclination: inclination)
-    }
-    
-    static func omega(T: Double, inclination: Double) -> SCNVector3{
-        let z = sin(inclination * Double.pi/180.0)/T
-        let y = (1) * cos(inclination * Double.pi/180.0)/T
-        return SCNVector3(0.0, y, z)
-    }
 }
 

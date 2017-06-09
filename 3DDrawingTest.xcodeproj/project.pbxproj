@@ -12,6 +12,7 @@
 		49F144841EEA2CA50030647A /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F144831EEA2CA50030647A /* SetupViewController.swift */; };
 		5261AA271EEA1F30002F3BD5 /* DataEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5261AA261EEA1F30002F3BD5 /* DataEngine.swift */; };
 		5261AA291EEA1F4D002F3BD5 /* NodeStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5261AA281EEA1F4D002F3BD5 /* NodeStack.swift */; };
+		67B729D81EEB4BF800FCD3A4 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B729D71EEB4BF800FCD3A4 /* Utilities.swift */; };
 		67F724181EEA006E0037605A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F724171EEA006E0037605A /* AppDelegate.swift */; };
 		67F7241A1EEA006E0037605A /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 67F724191EEA006E0037605A /* art.scnassets */; };
 		67F7241C1EEA006E0037605A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F7241B1EEA006E0037605A /* ViewController.swift */; };
@@ -46,6 +47,7 @@
 		49F144831EEA2CA50030647A /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
 		5261AA261EEA1F30002F3BD5 /* DataEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataEngine.swift; sourceTree = "<group>"; };
 		5261AA281EEA1F4D002F3BD5 /* NodeStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeStack.swift; sourceTree = "<group>"; };
+		67B729D71EEB4BF800FCD3A4 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		67F724141EEA006E0037605A /* 3DDrawingTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3DDrawingTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		67F724171EEA006E0037605A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		67F724191EEA006E0037605A /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				67F724171EEA006E0037605A /* AppDelegate.swift */,
 				67F724191EEA006E0037605A /* art.scnassets */,
 				67F7241B1EEA006E0037605A /* ViewController.swift */,
+				67B729D71EEB4BF800FCD3A4 /* Utilities.swift */,
 				49F144831EEA2CA50030647A /* SetupViewController.swift */,
 				4932DF7A1EEB1B4700182D2F /* ContainerViewController.swift */,
 				5261AA261EEA1F30002F3BD5 /* DataEngine.swift */,
@@ -284,6 +287,7 @@
 				4932DF7B1EEB1B4700182D2F /* ContainerViewController.swift in Sources */,
 				5261AA291EEA1F4D002F3BD5 /* NodeStack.swift in Sources */,
 				67F724181EEA006E0037605A /* AppDelegate.swift in Sources */,
+				67B729D81EEB4BF800FCD3A4 /* Utilities.swift in Sources */,
 				49F144841EEA2CA50030647A /* SetupViewController.swift in Sources */,
 				5261AA271EEA1F30002F3BD5 /* DataEngine.swift in Sources */,
 			);
