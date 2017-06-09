@@ -30,8 +30,12 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
     }()
     
     // Initialization
-    override init(){
+    init(name: String, color: UIColor){
         print("Starting the engine")
+        
+        self.name = name
+        self.color = color
+        
         self.serviceAdvertiser = MCNearbyServiceAdvertiser(peer: myPeerId, discoveryInfo: nil, serviceType: "drawing-service")
         self.serviceBrowser = MCNearbyServiceBrowser(peer: myPeerId, serviceType: "drawing-service")
         super.init()
@@ -80,6 +84,9 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
             for node in self.nodes {
                 self.sendNode(node)
             }
+            self.addUser()
+        } else if(state == MCSessionState.notConnected){
+            self.delegate.removeUser(peerID: peerID)
         }
         
     }
@@ -94,6 +101,8 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
         switch receivedNode.type {
         case "pointData":
             self.delegate.drawNode(points: receivedNode.pointData, color: receivedNode.color)
+        case "addUser":
+            self.delegate.addUser(name: receivedNode.name, color: receivedNode.color, peerID: peerID)
         default:
             break
         }
@@ -115,8 +124,25 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
     }
     
     
-    // Node handling methods - Custom
+    func addUser(){
+        let dataPacket = DataPacket()
+        dataPacket.type = "addUser"
+        dataPacket.name = self.name
+        dataPacket.color = self.color
+        
+        print("Attempting to Encode Data")
+        let dataToSend = NSKeyedArchiver.archivedData(withRootObject: dataPacket)
+        print("Data Encoded")
+        // let dataToSend = NSKeyedArchiver.archivedData(withRootObject: node)
+        do {
+            try self.session.send(dataToSend, toPeers: session.connectedPeers, with: MCSessionSendDataMode.reliable)
+        }
+        catch let error {
+            print("Error for sending: \(error)")
+        }
+    }
     
+    // Node handling methods - Custom
     func sendNode(_ node: [CGPoint]){
         
         self.nodes.append(node)
@@ -196,8 +222,11 @@ class DataPacket: NSObject, NSCoding {
  */
 @objc protocol DataEngineDelegate: class {
     // Called when a peer sends a drawing that should be shown
-    
     func drawNode(points: [CGPoint], color: UIColor)
+    
+    // Called when peers connect and disconnect
+    func addUser(name: String, color: UIColor, peerID: MCPeerID)
+    func removeUser(peerID: MCPeerID)
     
     // Called when a peer sends a node (TODO)
     @objc optional func removeNode(_ node: SKSpriteNode)

@@ -11,15 +11,23 @@ import SceneKit
 import SpriteKit
 import ARKit
 import Foundation
+import MultipeerConnectivity
 
-class ViewController: UIViewController, ARSCNViewDelegate {
+class ViewController: UIViewController, ARSCNViewDelegate, DrawNodeDelegate {
+    func addUser(name: String, color: UIColor, peerID: MCPeerID) {
+        self.delegate.addUser(name: name, color: color, peerID: peerID)
+    }
+    func removeUser( peerID: MCPeerID) {
+        self.delegate.removeUser(peerID: peerID)
+    }
     
     var name: String!
     var color: UIColor!
+    var delegate: DrawingViewControllerDelegate!
     
     let astroUnit:CGFloat = 0.2
     let earthRadius:CGFloat = 0.01
-    let drawNode: DrawNode = DrawNode()
+    var drawNode: DrawNode!
     var canvasTexture: SKScene = SKScene()
     var canvasNode = SCNNode()
     let extent = CGFloat(1200)
@@ -49,8 +57,27 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.scene = scene
         canvasTexture = SKScene(size: CGSize(width: extent, height: extent))
 //        canvasTexture.backgroundColor = UIColor.clear
+        
+        drawNode = DrawNode(name: self.name, color: self.color)
+        
         drawNode.position = CGPoint(x:0.0, y:0.0)
         drawNode.color = self.color
+        drawNode.delegate = self
+        
+        switch self.color {
+        case UIColor.yellow:
+            print("initially Yellow")
+        case UIColor.red:
+            print("initially Red")
+        case UIColor.blue:
+            print("initially Blue")
+        case UIColor.green:
+            print("initially Green")
+        default:
+            print("initially Yellow")
+        }
+        
+        
         drawNode.userName = self.name
         drawNode.containingView = canvasTexture.view
         canvasTexture.addChild(drawNode)
@@ -160,6 +187,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
+}
+
+protocol DrawingViewControllerDelegate {
+    func addUser(name: String, color: UIColor, peerID: MCPeerID)
+    func removeUser(peerID: MCPeerID)
 }
 
 extension SCNVector3{

@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import MultipeerConnectivity
 
 class DrawNode: SKNode, DataEngineDelegate {
     
@@ -20,7 +21,8 @@ class DrawNode: SKNode, DataEngineDelegate {
     // All the points in this line
     private var points = [CGPoint]()
     
-    private var dataEngine = DataEngine()
+    private var dataEngine: DataEngine
+    var delegate: DrawNodeDelegate!
 
     var color = UIColor.yellow
     var userName: String!
@@ -29,20 +31,26 @@ class DrawNode: SKNode, DataEngineDelegate {
     var containingView: SKView?
     
     /// Initialize
-    override init() {
+    init(name: String, color: UIColor) {
+        
+        self.dataEngine = DataEngine(name: name, color: color)
+        
+        
         super.init()
+        self.name = name
+        self.color = color
         self.dataEngine.delegate = self
-        self.dataEngine.name = self.userName
-        self.dataEngine.color = self.color
         self.addChild(line)
     }
     
     /// Provide custom view for texurizing
-    init(view: SKView) {
+    init(view: SKView, name: String, color: UIColor) {
+        self.dataEngine = DataEngine(name: name, color: color)
+        
         super.init()
+        self.name = name
+        self.color = color
         self.dataEngine.delegate = self
-        self.dataEngine.name = self.userName
-        self.dataEngine.color = self.color
         containingView = view
         self.addChild(line)
     }
@@ -93,6 +101,7 @@ class DrawNode: SKNode, DataEngineDelegate {
     
     func competePath() {
         // Yellow to indicate that it is a node
+        self.dataEngine.color = self.color
         self.dataEngine.sendNode(points)
         self.drawPath(pointsToDraw: points, color: self.color)
     }
@@ -117,5 +126,17 @@ class DrawNode: SKNode, DataEngineDelegate {
         line.zPosition += 1
         line.strokeColor = UIColor.red
     }
+    
+    func addUser(name: String, color: UIColor, peerID: MCPeerID) {
+        self.delegate.addUser(name: name, color: color, peerID: peerID)
+    }
+    
+    func removeUser(peerID: MCPeerID) {
+        self.delegate.removeUser(peerID: peerID)
+    }
 }
 
+protocol DrawNodeDelegate {
+    func addUser(name: String, color: UIColor, peerID: MCPeerID)
+    func removeUser(peerID: MCPeerID)
+}
