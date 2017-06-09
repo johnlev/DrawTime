@@ -10,9 +10,6 @@ import SpriteKit
 import GameplayKit
 
 class DrawNode: SKNode, DataEngineDelegate {
-    func drawNode(_ node: SKSpriteNode) {
-        
-    }
     
     
     // Store the path in a Bezier path
@@ -61,6 +58,10 @@ class DrawNode: SKNode, DataEngineDelegate {
         sprite.position = CGPoint(x: newLine.frame.origin.x + newLine.frame.width / 2, y: newLine.frame.origin.y + newLine.frame.height / 2)
         nodes.append(sprite)
         self.addChild(sprite)
+    }
+    
+    func drawNode(_ node: SKSpriteNode) {
+        self.addChild(node)
     }
     
     /// Handles the touch down event

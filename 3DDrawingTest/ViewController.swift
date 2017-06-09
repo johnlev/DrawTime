@@ -45,7 +45,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         sceneView.scene = scene
         canvasTexture = SKScene(size: CGSize(width: extent, height: extent))
-//        canvasTexture.backgroundColor = UIColor.clear
+        canvasTexture.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.1)
         drawNode.position = CGPoint(x:0.0, y:0.0)
         drawNode.containingView = canvasTexture.view
         canvasTexture.addChild(drawNode)
