@@ -22,6 +22,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     let extent = CGFloat(600)
     // TODO: Convert canvasTexture into a let that's set ini init
     @IBOutlet var sceneView: ARSCNView!
+    @IBOutlet weak var undoButton: UIButton!
+    @IBOutlet weak var clearButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +47,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         sceneView.scene = scene
         canvasTexture = SKScene(size: CGSize(width: extent, height: extent))
-//        canvasTexture.backgroundColor = UIColor.clear
+        canvasTexture.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.1)
         drawNode.position = CGPoint(x:0.0, y:0.0)
         drawNode.containingView = canvasTexture.view
         canvasTexture.addChild(drawNode)
@@ -58,6 +60,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         canvasNode.position = SCNVector3(0,0,-2.0)
         scene.rootNode.addChildNode(canvasNode)
         
+//        self.undoButton.isEnabled = self.drawNode.undoManaging.canUndo
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,6 +73,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.run(configuration)
         
         
+    }
+    
+    @IBAction func undoPressed(_ sender: Any) {
+        self.drawNode.undo()
+//        self.undoButton.isEnabled = self.drawNode.undoManaging.canUndo
+    }
+    
+    @IBAction func clearPressed(_ sender: Any) {
+        self.drawNode.clear()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -152,6 +164,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             let drawingCoord = CGPoint( x: coord[0].textureCoordinates(withMappingChannel: 0).x * extent,
                                         y: coord[0].textureCoordinates(withMappingChannel: 0).y * extent)
             self.drawNode.touchUp(atPoint: drawingCoord)
+        }
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let coord = self.sceneView.hitTest((touches.first?.location(in: self.sceneView))!, options: nil)
+        if coord.count > 0{
+            let drawingCoord = CGPoint( x: coord[0].textureCoordinates(withMappingChannel: 0).x * extent,
+                                        y: coord[0].textureCoordinates(withMappingChannel: 0).y * extent)
+            self.drawNode.touchUp(atPoint: drawingCoord)
+//            self.undoButton.isEnabled = self.drawNode.undoManaging.canUndo
         }
     }
     

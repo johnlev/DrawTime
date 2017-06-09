@@ -1,27 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13127" systemVersion="16F43c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16G12b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13109"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <arscnView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="BrB-h1-WRS">
+                <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="_DDrawingTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vmT-Ac-mlX"/>
+                        <viewControllerLayoutGuide type="bottom" id="A42-gz-qaQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Enk-It-sYo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </arscnView>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="76S-ws-C8S">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </arscnView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KUL-e2-llk">
+                                <rect key="frame" x="16" y="616" width="45" height="35"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Clear"/>
+                                <connections>
+                                    <action selector="clearPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="mgD-e8-BsW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vvW-9C-FlV">
+                                <rect key="frame" x="312" y="616" width="47" height="35"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Undo"/>
+                                <connections>
+                                    <action selector="undoPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="y9K-0f-yFt"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="76S-ws-C8S" firstAttribute="leading" secondItem="Enk-It-sYo" secondAttribute="leading" id="1ed-Ii-bFW"/>
+                            <constraint firstItem="76S-ws-C8S" firstAttribute="top" secondItem="Enk-It-sYo" secondAttribute="top" id="8Ff-8r-eHo"/>
+                            <constraint firstAttribute="trailing" secondItem="76S-ws-C8S" secondAttribute="trailing" id="9SH-Ns-f5Y"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="vvW-9C-FlV" secondAttribute="trailing" id="G3A-ub-pfu"/>
+                            <constraint firstItem="A42-gz-qaQ" firstAttribute="top" secondItem="vvW-9C-FlV" secondAttribute="bottom" constant="16" id="Mc8-eZ-4nd"/>
+                            <constraint firstItem="A42-gz-qaQ" firstAttribute="top" secondItem="76S-ws-C8S" secondAttribute="bottom" id="cvL-Ek-TMN"/>
+                            <constraint firstItem="KUL-e2-llk" firstAttribute="leading" secondItem="Enk-It-sYo" secondAttribute="leadingMargin" id="eb2-qQ-SB5"/>
+                            <constraint firstItem="A42-gz-qaQ" firstAttribute="top" secondItem="KUL-e2-llk" secondAttribute="bottom" constant="16" id="igZ-Sr-Ai9"/>
+                        </constraints>
+                    </view>
                     <connections>
-                        <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
+                        <outlet property="clearButton" destination="KUL-e2-llk" id="WLd-MW-wvy"/>
+                        <outlet property="sceneView" destination="76S-ws-C8S" id="BvX-Lf-Hjo"/>
+                        <outlet property="undoButton" destination="vvW-9C-FlV" id="OQc-V0-caJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="120.98950524737631"/>
         </scene>
     </scenes>
 </document>

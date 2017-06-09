@@ -10,6 +10,10 @@ import SpriteKit
 import GameplayKit
 
 class DrawNode: SKNode, DataEngineDelegate {
+    func drawNode(_ node: SKSpriteNode) {
+        
+    }
+    
     
     // Store the path in a Bezier path
     private var path = UIBezierPath()
@@ -40,12 +44,26 @@ class DrawNode: SKNode, DataEngineDelegate {
         self.addChild(line)
     }
     
+    func undo() {
+        guard let last = self.nodes.last, last != line else {
+            return
+        }
+        self.removeChildren(in: [last])
+        self.nodes.remove(at: self.nodes.count - 1)
+    }
+    
+    func clear() {
+        self.removeAllChildren()
+        self.addChild(line)
+        self.nodes = []
+    }
+    
     /// Fails. Dont call this
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func drawPoints(_ pnts: [CGPoint]) {
+    func drawPoints(_ pnts: [CGPoint]) -> SKSpriteNode {
         var points = pnts
         // Yellow to indicate that it is a node
         let newLine = SKShapeNode(splinePoints: &points, count: points.count)
@@ -57,6 +75,7 @@ class DrawNode: SKNode, DataEngineDelegate {
         sprite.position = CGPoint(x: newLine.frame.origin.x + newLine.frame.width / 2, y: newLine.frame.origin.y + newLine.frame.height / 2)
         nodes.append(sprite)
         self.addChild(sprite)
+        return sprite
     }
     
     /// Handles the touch down event
@@ -93,8 +112,8 @@ class DrawNode: SKNode, DataEngineDelegate {
     }
     
     func competePath() {
-        self.drawPoints(self.points)
-        dataEngine.sendPoints(self.points)
+        let sprite = self.drawPoints(self.points)
+//        dataEngine.sendPoints(self.points)
         
         // Reset the path and move the line on top of the new nodes
         path = UIBezierPath()
