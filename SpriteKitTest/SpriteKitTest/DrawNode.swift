@@ -9,7 +9,8 @@
 import SpriteKit
 import GameplayKit
 
-class DrawNode: SKNode {
+class DrawNode: SKNode, DataEngineDelegate {
+    
     // Store the path in a Bezier path
     private var path = UIBezierPath()
     // The line that will be drawn
@@ -19,18 +20,22 @@ class DrawNode: SKNode {
     // All the points in this line
     private var points = [CGPoint]()
     
+    private var dataEngine = DataEngine()
+    
     // For custom texturization
     var containingView: SKView?
     
     /// Initialize
     override init() {
         super.init()
+        self.dataEngine.delegate = self
         self.addChild(line)
     }
     
     /// Provide custom view for texurizing
     init(view: SKView) {
         super.init()
+        self.dataEngine.delegate = self
         containingView = view
         self.addChild(line)
     }
@@ -38,6 +43,11 @@ class DrawNode: SKNode {
     /// Fails. Dont call this
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    func drawNode(_ node: SKSpriteNode) {
+        self.addChild(node)
     }
     
     /// Handles the touch down event
@@ -83,6 +93,7 @@ class DrawNode: SKNode {
         let sprite = SKSpriteNode(texture: (self.containingView ?? SKView()).texture(from: newLine))
         sprite.position = CGPoint(x: newLine.frame.origin.x + newLine.frame.width / 2, y: newLine.frame.origin.y + newLine.frame.height / 2)
         nodes.append(sprite)
+        self.dataEngine.sendNode(sprite)
         self.addChild(sprite)
         
         // Reset the path and move the line on top of the new nodes
