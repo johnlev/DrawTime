@@ -14,12 +14,15 @@ import Foundation
 
 class ViewController: UIViewController, ARSCNViewDelegate {
     
+    var name: String!
+    var color: UIColor!
+    
     let astroUnit:CGFloat = 0.2
     let earthRadius:CGFloat = 0.01
     let drawNode: DrawNode = DrawNode()
     var canvasTexture: SKScene = SKScene()
     var canvasNode = SCNNode()
-    let extent = CGFloat(600)
+    let extent = CGFloat(1200)
     // TODO: Convert canvasTexture into a let that's set ini init
     @IBOutlet var sceneView: ARSCNView!
     
@@ -38,15 +41,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Set the scene to the view
         let scene = SCNScene()
         let light = SCNLight()
-        light.color = UIColor.yellow
+        light.color = UIColor.green
         light.type = SCNLight.LightType.omni
         //light.castsShadow = true
         light.spotInnerAngle = CGFloat(2 * Double.pi)
         
         sceneView.scene = scene
         canvasTexture = SKScene(size: CGSize(width: extent, height: extent))
-        canvasTexture.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.1)
+//        canvasTexture.backgroundColor = UIColor.clear
         drawNode.position = CGPoint(x:0.0, y:0.0)
+        drawNode.color = self.color
         drawNode.containingView = canvasTexture.view
         canvasTexture.addChild(drawNode)
         let canvasGeometry = SCNPlane()

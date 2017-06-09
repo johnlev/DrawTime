@@ -13,7 +13,8 @@ import MultipeerConnectivity
 class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBrowserDelegate, MCSessionDelegate {
     
     // Data
-    var nodes = NodeStack()
+    // var nodes = NodeStack()
+    var nodes = [[CGPoint]]()
     var delegate: DataEngineDelegate!
     
     // Connectivity
@@ -71,19 +72,24 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
         print("peer \(peerID) didChangeState: \(state)")
         
-        // TODO: Send all previous drawings to user
+        
+        // Send all previous drawings from this device to user
+        if(state == MCSessionState.connected){
+            for node in self.nodes {
+                self.sendNode(node)
+            }
+        }
+        
     }
     
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         print("didReceiveData: \(data)")
         
-        // Extract Node
-        let receivedNode = NSKeyedUnarchiver.unarchiveObject(with: data) as! SKSpriteNode
         
-        // Save the Node
-        self.nodes.push(receivedNode)
+        // Extract Node Message
+        let receivedNode = NSKeyedUnarchiver.unarchiveObject(with: data) as! [CGPoint]
         
-        // Draw the Node
+        
         self.delegate.drawNode(receivedNode)
         
     }
@@ -102,7 +108,12 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
     
     
     // Node handling methods - Custom
-    func sendNode(_ node: SKSpriteNode){
+    
+    func sendNode(_ node: [CGPoint]){
+        
+        self.nodes.append(node)
+        
+        
         let dataToSend = NSKeyedArchiver.archivedData(withRootObject: node)
         do {
             try self.session.send(dataToSend, toPeers: session.connectedPeers, with: MCSessionSendDataMode.reliable)
@@ -119,7 +130,9 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
  */
 @objc protocol DataEngineDelegate: class {
     // Called when a peer sends a drawing that should be shown
-    func drawNode(_ node: SKSpriteNode)
+    
+    func drawNode(_ node: [CGPoint])
+    
     // Called when a peer sends a node (TODO)
     @objc optional func removeNode(_ node: SKSpriteNode)
 }

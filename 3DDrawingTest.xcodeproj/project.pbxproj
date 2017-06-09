@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4932DF7B1EEB1B4700182D2F /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4932DF7A1EEB1B4700182D2F /* ContainerViewController.swift */; };
+		4932DF7D1EEB1EBA00182D2F /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4932DF7C1EEB1EBA00182D2F /* UserCell.swift */; };
+		49F144841EEA2CA50030647A /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49F144831EEA2CA50030647A /* SetupViewController.swift */; };
 		5261AA271EEA1F30002F3BD5 /* DataEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5261AA261EEA1F30002F3BD5 /* DataEngine.swift */; };
 		5261AA291EEA1F4D002F3BD5 /* NodeStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5261AA281EEA1F4D002F3BD5 /* NodeStack.swift */; };
 		67F724181EEA006E0037605A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F724171EEA006E0037605A /* AppDelegate.swift */; };
@@ -38,6 +41,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4932DF7A1EEB1B4700182D2F /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		4932DF7C1EEB1EBA00182D2F /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		49F144831EEA2CA50030647A /* SetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
 		5261AA261EEA1F30002F3BD5 /* DataEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataEngine.swift; sourceTree = "<group>"; };
 		5261AA281EEA1F4D002F3BD5 /* NodeStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeStack.swift; sourceTree = "<group>"; };
 		67F724141EEA006E0037605A /* 3DDrawingTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 3DDrawingTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,9 +114,12 @@
 				67F724171EEA006E0037605A /* AppDelegate.swift */,
 				67F724191EEA006E0037605A /* art.scnassets */,
 				67F7241B1EEA006E0037605A /* ViewController.swift */,
+				49F144831EEA2CA50030647A /* SetupViewController.swift */,
+				4932DF7A1EEB1B4700182D2F /* ContainerViewController.swift */,
 				5261AA261EEA1F30002F3BD5 /* DataEngine.swift */,
 				5261AA281EEA1F4D002F3BD5 /* NodeStack.swift */,
 				67F724471EEA01A60037605A /* DrawNode.swift */,
+				4932DF7C1EEB1EBA00182D2F /* UserCell.swift */,
 				67F7241D1EEA006E0037605A /* Main.storyboard */,
 				67F724201EEA006E0037605A /* Assets.xcassets */,
 				67F724221EEA006E0037605A /* LaunchScreen.storyboard */,
@@ -269,10 +278,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4932DF7D1EEB1EBA00182D2F /* UserCell.swift in Sources */,
 				67F7241C1EEA006E0037605A /* ViewController.swift in Sources */,
 				67F724481EEA01A60037605A /* DrawNode.swift in Sources */,
+				4932DF7B1EEB1B4700182D2F /* ContainerViewController.swift in Sources */,
 				5261AA291EEA1F4D002F3BD5 /* NodeStack.swift in Sources */,
 				67F724181EEA006E0037605A /* AppDelegate.swift in Sources */,
+				49F144841EEA2CA50030647A /* SetupViewController.swift in Sources */,
 				5261AA271EEA1F30002F3BD5 /* DataEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,10 +447,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 94P93XVBFP;
+				DEVELOPMENT_TEAM = 94LM7998EU;
 				INFOPLIST_FILE = 3DDrawingTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.CheekyWWDC.DDrawingTest;
+				PRODUCT_BUNDLE_IDENTIFIER = "titaniumapps.-DDrawingTest";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -449,10 +461,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 94P93XVBFP;
+				DEVELOPMENT_TEAM = 94LM7998EU;
 				INFOPLIST_FILE = 3DDrawingTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.CheekyWWDC.DDrawingTest;
+				PRODUCT_BUNDLE_IDENTIFIER = "titaniumapps.-DDrawingTest";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -11,7 +11,6 @@ import GameplayKit
 
 class DrawNode: SKNode, DataEngineDelegate {
     
-    
     // Store the path in a Bezier path
     private var path = UIBezierPath()
     // The line that will be drawn
@@ -22,6 +21,8 @@ class DrawNode: SKNode, DataEngineDelegate {
     private var points = [CGPoint]()
     
     private var dataEngine = DataEngine()
+
+    var color = UIColor.yellow
     
     // For custom texturization
     var containingView: SKView?
@@ -46,24 +47,12 @@ class DrawNode: SKNode, DataEngineDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func drawPoints(_ pnts: [CGPoint]) {
-        var points = pnts
-        // Yellow to indicate that it is a node
-        let newLine = SKShapeNode(splinePoints: &points, count: points.count)
-        newLine.lineWidth = 5
-        newLine.strokeColor = UIColor.yellow
-        
-        // Make a sprite of it
-        let sprite = SKSpriteNode(texture: (self.containingView ?? SKView()).texture(from: newLine))
-        sprite.position = CGPoint(x: newLine.frame.origin.x + newLine.frame.width / 2, y: newLine.frame.origin.y + newLine.frame.height / 2)
-        nodes.append(sprite)
-        self.addChild(sprite)
-    }
     
-    func drawNode(_ node: SKSpriteNode) {
-        self.addChild(node)
-    }
-    
+    func drawNode(_ node: [CGPoint]) {
+        // self.addChild(node)
+        self.drawPath(node)
+    } 
+
     /// Handles the touch down event
     func touchDown(atPoint pos : CGPoint) {
         // Add the point to the path and update the line
@@ -98,8 +87,23 @@ class DrawNode: SKNode, DataEngineDelegate {
     }
     
     func competePath() {
-        self.drawPoints(self.points)
-//        dataEngine.sendPoints(self.points)
+        // Yellow to indicate that it is a node
+        self.dataEngine.sendNode(points)
+        self.drawPath(points)
+    }
+    
+    func drawPath(_ pointsToDraw: [CGPoint]){
+        self.points = pointsToDraw
+        let newLine = SKShapeNode(splinePoints: &points, count: pointsToDraw.count)
+        newLine.lineWidth = 5
+        newLine.strokeColor = self.color
+        
+        // Make a sprite of it
+        let sprite = SKSpriteNode(texture: (self.containingView ?? SKView()).texture(from: newLine))
+        sprite.position = CGPoint(x: newLine.frame.origin.x + newLine.frame.width / 2, y: newLine.frame.origin.y + newLine.frame.height / 2)
+        nodes.append(sprite)
+
+        self.addChild(sprite)
         
         // Reset the path and move the line on top of the new nodes
         path = UIBezierPath()
@@ -107,7 +111,6 @@ class DrawNode: SKNode, DataEngineDelegate {
         line.path = path.cgPath
         line.zPosition += 1
         line.strokeColor = UIColor.red
-        
     }
 }
 
