@@ -51,6 +51,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 //        canvasTexture.backgroundColor = UIColor.clear
         drawNode.position = CGPoint(x:0.0, y:0.0)
         drawNode.color = self.color
+        drawNode.userName = self.name
         drawNode.containingView = canvasTexture.view
         canvasTexture.addChild(drawNode)
         let canvasGeometry = SCNPlane()

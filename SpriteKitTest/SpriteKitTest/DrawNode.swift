@@ -23,6 +23,7 @@ class DrawNode: SKNode, DataEngineDelegate {
     private var dataEngine = DataEngine()
 
     var color = UIColor.yellow
+    var userName: String!
     
     // For custom texturization
     var containingView: SKView?
@@ -31,6 +32,8 @@ class DrawNode: SKNode, DataEngineDelegate {
     override init() {
         super.init()
         self.dataEngine.delegate = self
+        self.dataEngine.name = self.userName
+        self.dataEngine.color = self.color
         self.addChild(line)
     }
     
@@ -38,6 +41,8 @@ class DrawNode: SKNode, DataEngineDelegate {
     init(view: SKView) {
         super.init()
         self.dataEngine.delegate = self
+        self.dataEngine.name = self.userName
+        self.dataEngine.color = self.color
         containingView = view
         self.addChild(line)
     }
@@ -48,9 +53,9 @@ class DrawNode: SKNode, DataEngineDelegate {
     }
     
     
-    func drawNode(_ node: [CGPoint]) {
+    func drawNode(points: [CGPoint], color: UIColor) {
         // self.addChild(node)
-        self.drawPath(node)
+        self.drawPath(pointsToDraw: points, color: color)
     } 
 
     /// Handles the touch down event
@@ -89,14 +94,14 @@ class DrawNode: SKNode, DataEngineDelegate {
     func competePath() {
         // Yellow to indicate that it is a node
         self.dataEngine.sendNode(points)
-        self.drawPath(points)
+        self.drawPath(pointsToDraw: points, color: self.color)
     }
     
-    func drawPath(_ pointsToDraw: [CGPoint]){
+    func drawPath(pointsToDraw: [CGPoint], color: UIColor){
         self.points = pointsToDraw
         let newLine = SKShapeNode(splinePoints: &points, count: pointsToDraw.count)
         newLine.lineWidth = 5
-        newLine.strokeColor = self.color
+        newLine.strokeColor = color
         
         // Make a sprite of it
         let sprite = SKSpriteNode(texture: (self.containingView ?? SKView()).texture(from: newLine))

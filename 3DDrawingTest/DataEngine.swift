@@ -16,6 +16,8 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
     // var nodes = NodeStack()
     var nodes = [[CGPoint]]()
     var delegate: DataEngineDelegate!
+    var name: String!
+    var color: UIColor!
     
     // Connectivity
     private let myPeerId = MCPeerID(displayName: UIDevice.current.name)
@@ -87,10 +89,16 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
         
         
         // Extract Node Message
-        let receivedNode = NSKeyedUnarchiver.unarchiveObject(with: data) as! [CGPoint]
+        let receivedNode = NSKeyedUnarchiver.unarchiveObject(with: data) as! DataPacket
         
+        switch receivedNode.type {
+        case "pointData":
+            self.delegate.drawNode(points: receivedNode.pointData, color: receivedNode.color)
+        default:
+            break
+        }
         
-        self.delegate.drawNode(receivedNode)
+        // self.delegate.drawNode(receivedNode)
         
     }
     
@@ -112,9 +120,33 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
     func sendNode(_ node: [CGPoint]){
         
         self.nodes.append(node)
+        print("Attmepting to Encode Data")
+        
+        let dataPacket = DataPacket()
+        dataPacket.type = "pointData"
+        dataPacket.pointData = node
         
         
-        let dataToSend = NSKeyedArchiver.archivedData(withRootObject: node)
+        switch self.color {
+        case UIColor.yellow:
+            print("Sending Yellow")
+        case UIColor.red:
+            print("Sending Red")
+        case UIColor.blue:
+            print("Sending Blue")
+        case UIColor.green:
+            print("Sending Green")
+        default:
+            print("Sending Yellow")
+        }
+        
+        
+        dataPacket.color = self.color
+        
+        print("Attempting to Encode Data")
+        let dataToSend = NSKeyedArchiver.archivedData(withRootObject: dataPacket)
+        print("Data Encoded")
+        // let dataToSend = NSKeyedArchiver.archivedData(withRootObject: node)
         do {
             try self.session.send(dataToSend, toPeers: session.connectedPeers, with: MCSessionSendDataMode.reliable)
         }
@@ -124,6 +156,40 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
     }
     
 }
+/*
+enum DataPacket {
+    case name(String)
+    case pointData([CGPoint])
+    case color(UIColor)
+}
+*/
+
+class DataPacket: NSObject, NSCoding {
+    var name: String!
+    var type: String!
+    var pointData: [CGPoint]!
+    var color: UIColor!
+    
+    override init() {
+        
+    }
+    
+    required init(coder decoder: NSCoder) {
+        self.name = decoder.decodeObject(forKey: "name") as? String ?? ""
+        self.type = decoder.decodeObject(forKey: "type") as? String ?? ""
+        self.pointData = decoder.decodeObject(forKey: "pointData") as? [CGPoint] ?? [CGPoint]()
+        self.color = decoder.decodeObject(forKey: "color") as? UIColor ?? UIColor.yellow
+    }
+    
+    func encode(with coder: NSCoder) {
+        coder.encode(name, forKey: "name")
+        coder.encode(type, forKey: "type")
+        coder.encode(pointData, forKey: "pointData")
+        coder.encode(color, forKey: "color")
+    }
+}
+
+
 
 /*
  Protocol to allow saving and receiving drawings
@@ -131,7 +197,7 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
 @objc protocol DataEngineDelegate: class {
     // Called when a peer sends a drawing that should be shown
     
-    func drawNode(_ node: [CGPoint])
+    func drawNode(points: [CGPoint], color: UIColor)
     
     // Called when a peer sends a node (TODO)
     @objc optional func removeNode(_ node: SKSpriteNode)
