@@ -15,6 +15,10 @@ import MultipeerConnectivity
 
 class ViewController: UIViewController, DrawNodeDelegate {
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     func addUser(name: String, color: UIColor, peerID: MCPeerID) {
         self.delegate.addUser(name: name, color: color, peerID: peerID)
     }
@@ -28,7 +32,7 @@ class ViewController: UIViewController, DrawNodeDelegate {
     
     var canvasTexture: SKScene = SKScene()
     var canvasNode = SCNNode()
-    let extent = CGFloat(1200)
+    let pixelsPerMeter = CGFloat(1200)
     // TODO: Convert canvasTexture into a let that's set ini init
     @IBOutlet var sceneView: ARSCNView!
     
@@ -47,7 +51,7 @@ class ViewController: UIViewController, DrawNodeDelegate {
         sceneView.delegate = self
         
         // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
+        //sceneView.showsStatistics = true
         setupScene()
         
         switch self.color {
@@ -90,6 +94,10 @@ class ViewController: UIViewController, DrawNodeDelegate {
     func setupScene() {
         sceneView.delegate = self
         sceneView.session = session
+        sceneView.antialiasingMode = .multisampling4X
+        sceneView.automaticallyUpdatesLighting = true
+        
+        sceneView.preferredFramesPerSecond = 60
     }
     
     func restartPlaneDetection() {
@@ -116,7 +124,7 @@ class ViewController: UIViewController, DrawNodeDelegate {
         drawNode!.containingView = canvasTexture.view
         drawNode!.containingView = canvasTexture.view
         sceneView.scene = scene
-        canvasTexture = SKScene(size: CGSize(width: extentx * 600, height: extentz * 600))
+        canvasTexture = SKScene(size: CGSize(width: extentx * pixelsPerMeter, height: extentz * pixelsPerMeter))
         canvasTexture.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
         drawNode!.position = CGPoint(x:0.0, y:0.0)
         canvasTexture.addChild(drawNode!)
@@ -204,8 +212,8 @@ extension ViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let coord = self.sceneView.hitTest((touches.first?.location(in: self.sceneView))!, options: nil)
         if coord.count > 0{
-            let drawingCoord = CGPoint( x: coord[0].textureCoordinates(withMappingChannel: 0).x * extentx * 600,
-                                        y: coord[0].textureCoordinates(withMappingChannel: 0).y * extentz * 600)
+            let drawingCoord = CGPoint( x: coord[0].textureCoordinates(withMappingChannel: 0).x * extentx * pixelsPerMeter,
+                                        y: coord[0].textureCoordinates(withMappingChannel: 0).y * extentz * pixelsPerMeter)
             self.drawNode!.touchDown(atPoint: drawingCoord)
             print(drawingCoord)
         }
@@ -217,8 +225,8 @@ extension ViewController {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let coord = self.sceneView.hitTest((touches.first?.location(in: self.sceneView))!, options: nil)
         if coord.count > 0{
-            let drawingCoord = CGPoint( x: coord[0].textureCoordinates(withMappingChannel: 0).x * extentx * 600,
-                                        y: coord[0].textureCoordinates(withMappingChannel: 0).y * extentz * 600)
+            let drawingCoord = CGPoint( x: coord[0].textureCoordinates(withMappingChannel: 0).x * extentx * pixelsPerMeter,
+                                        y: coord[0].textureCoordinates(withMappingChannel: 0).y * extentz * pixelsPerMeter)
             self.drawNode!.touchMoved(toPoint: drawingCoord)
         }
     }
@@ -226,8 +234,8 @@ extension ViewController {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let coord = self.sceneView.hitTest((touches.first?.location(in: self.sceneView))!, options: nil)
         if coord.count > 0{
-            let drawingCoord = CGPoint( x: coord[0].textureCoordinates(withMappingChannel: 0).x * extentx * 600,
-                                        y: coord[0].textureCoordinates(withMappingChannel: 0).y * extentz * 600)
+            let drawingCoord = CGPoint( x: coord[0].textureCoordinates(withMappingChannel: 0).x * extentx * pixelsPerMeter,
+                                        y: coord[0].textureCoordinates(withMappingChannel: 0).y * extentz * pixelsPerMeter)
             self.drawNode!.touchUp(atPoint: drawingCoord)
         }
     }

@@ -20,7 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Virtual Blackboard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2EO-Vk-OM3">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2EO-Vk-OM3">
                                 <rect key="frame" x="52" y="80" width="270" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="270" id="36h-W0-4y8"/>
@@ -34,7 +34,7 @@
                                 <rect key="frame" x="52" y="186" width="270" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
                             </textField>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Msa-3E-l1T">
                                 <rect key="frame" x="27" y="286" width="320" height="216"/>
@@ -78,7 +78,7 @@
         <!--Container View Controller-->
         <scene sceneID="IWH-zM-8uU">
             <objects>
-                <viewController id="TVW-v8-JPj" customClass="ContainerViewController" customModule="_DDrawingTest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController wantsFullScreenLayout="YES" id="TVW-v8-JPj" customClass="ContainerViewController" customModule="_DDrawingTest" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="01I-1Y-43v"/>
                         <viewControllerLayoutGuide type="bottom" id="R7Q-pc-tjA"/>
@@ -94,7 +94,7 @@
                                 </connections>
                             </containerView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Phd-dq-wJN">
-                                <rect key="frame" x="5" y="612" width="370" height="30"/>
+                                <rect key="frame" x="12" y="627" width="363" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="uSV-26-16T"/>
@@ -150,9 +150,9 @@
                             <constraint firstAttribute="trailing" secondItem="Phd-dq-wJN" secondAttribute="trailing" id="0bX-rY-aYP"/>
                             <constraint firstItem="Yve-VC-rkn" firstAttribute="leading" secondItem="x48-il-P79" secondAttribute="leading" id="esY-fI-i1Z"/>
                             <constraint firstAttribute="trailing" secondItem="Yve-VC-rkn" secondAttribute="trailing" id="hhr-Vd-UqF"/>
-                            <constraint firstItem="Phd-dq-wJN" firstAttribute="leading" secondItem="x48-il-P79" secondAttribute="leading" constant="5" id="ngt-WW-Ee5"/>
+                            <constraint firstItem="Phd-dq-wJN" firstAttribute="leading" secondItem="x48-il-P79" secondAttribute="leading" constant="12" id="ngt-WW-Ee5"/>
                             <constraint firstItem="Yve-VC-rkn" firstAttribute="top" secondItem="x48-il-P79" secondAttribute="top" id="tTN-rI-78B"/>
-                            <constraint firstItem="R7Q-pc-tjA" firstAttribute="top" secondItem="Phd-dq-wJN" secondAttribute="bottom" constant="25" id="wWQ-tq-g9Y"/>
+                            <constraint firstItem="R7Q-pc-tjA" firstAttribute="top" secondItem="Phd-dq-wJN" secondAttribute="bottom" constant="10" id="wWQ-tq-g9Y"/>
                             <constraint firstItem="R7Q-pc-tjA" firstAttribute="top" secondItem="Yve-VC-rkn" secondAttribute="bottom" id="ynA-Qb-Quz"/>
                         </constraints>
                     </view>
@@ -168,7 +168,7 @@
         <!--View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="ViewController" customModule="_DDrawingTest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController wantsFullScreenLayout="YES" id="BV1-FR-VrT" customClass="ViewController" customModule="_DDrawingTest" customModuleProvider="target" sceneMemberID="viewController">
                     <arscnView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="BrB-h1-WRS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

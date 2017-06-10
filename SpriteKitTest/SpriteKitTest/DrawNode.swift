@@ -20,6 +20,7 @@ class DrawNode: SKNode, DataEngineDelegate {
     private var nodes = [SKSpriteNode]()
     // All the points in this line
     private var points = [CGPoint]()
+    var lineWidth = CGFloat(10)
     
     private var dataEngine: DataEngine
     var delegate: DrawNodeDelegate!
@@ -76,8 +77,8 @@ class DrawNode: SKNode, DataEngineDelegate {
         points.append(pos)
         
         // Set up the line's style
-        line.strokeColor = UIColor.red
-        line.lineWidth = 5
+        line.strokeColor = color
+        line.lineWidth = lineWidth
     }
     
     /// Handles the touch move event
@@ -109,7 +110,7 @@ class DrawNode: SKNode, DataEngineDelegate {
     func drawPath(pointsToDraw: [CGPoint], color: UIColor){
         self.points = pointsToDraw
         let newLine = SKShapeNode(splinePoints: &points, count: pointsToDraw.count)
-        newLine.lineWidth = 5
+        newLine.lineWidth = lineWidth
         newLine.strokeColor = color
         
         // Make a sprite of it
