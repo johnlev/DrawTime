@@ -117,7 +117,7 @@ class ViewController: UIViewController, DrawNodeDelegate {
         drawNode!.containingView = canvasTexture.view
         sceneView.scene = scene
         canvasTexture = SKScene(size: CGSize(width: extentx * 600, height: extentz * 600))
-        canvasTexture.backgroundColor = UIColor.gray.withAlphaComponent(0.5)
+        canvasTexture.backgroundColor = UIColor.gray.withAlphaComponent(0.0)
         drawNode!.position = CGPoint(x:0.0, y:0.0)
         canvasTexture.addChild(drawNode!)
         
@@ -130,6 +130,10 @@ class ViewController: UIViewController, DrawNodeDelegate {
         canvasNode.position = at
         canvasNode.eulerAngles = SCNVector3(Double.pi/2, 0, 0)
         scene.rootNode.addChildNode(canvasNode)
+        
+        let background = SKSpriteNode(color: UIColor.gray.withAlphaComponent(0.5), size: canvasTexture.size)
+        canvasTexture.addChild(background)
+        background.run(SKAction.fadeAlpha(to: 0.0, duration: 3.0))
         
     }
     
