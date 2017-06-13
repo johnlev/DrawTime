@@ -37,4 +37,3 @@ struct NodeStack {
         items.removeLast()
     }
 }
-

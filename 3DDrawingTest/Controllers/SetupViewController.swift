@@ -10,6 +10,9 @@ import UIKit
 
 class SetupViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var colorPicker: UIPickerView!
+    
     var name: String!
     var color: UIColor!
     
@@ -20,22 +23,11 @@ class SetupViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     @available(iOS 2.0, *)
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 4
+        return Constants.nodeColor.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        switch row {
-        case 0:
-            return "Yellow"
-        case 1:
-            return "Red"
-        case 2:
-            return "Blue"
-        case 3:
-            return "Green"
-        default:
-            return "Yellow"
-        }
+        return Constants.nodeColor[row].name
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -43,28 +35,11 @@ class SetupViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         return true
     }
     
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var colorPicker: UIPickerView!
-    
     @IBAction func joinButtonPressed(_ sender: Any) {
-        let colorIndex = self.colorPicker.selectedRow(inComponent: 0)
-        color = UIColor.yellow
-        name = self.nameTextField.text!
-        
-        switch colorIndex {
-        case 0:
-            color = UIColor.yellow
-        case 1:
-            color = UIColor.red
-        case 2:
-            color = UIColor.blue
-        case 3:
-            color = UIColor.green
-        default:
-            color = UIColor.yellow
-        }
-        
-        print("Setting color to: \(colorIndex)")
+        let row = self.colorPicker.selectedRow(inComponent: 0)
+        name = self.nameTextField.text ?? "👻"
+        color = Constants.nodeColor[row].value
+        print("Setting color to: \(row)")
         
         self.performSegue(withIdentifier: "Go To BalckBoard Segue", sender: self)
     }
@@ -76,16 +51,7 @@ class SetupViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         self.colorPicker.delegate = self
         self.colorPicker.dataSource = self
         self.nameTextField.delegate = self
-        
-        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
     
     // MARK: - Navigation
 
@@ -94,13 +60,9 @@ class SetupViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
-        
         let destinationController = segue.destination as! ContainerViewController
         
         destinationController.name = self.name
         destinationController.color = self.color
-        
     }
-    
-
 }

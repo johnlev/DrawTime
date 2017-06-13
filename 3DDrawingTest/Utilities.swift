@@ -36,4 +36,3 @@ extension SCNVector3 {
         return SCNVector3(self.y * vec.z - self.z * vec.y, self.z * vec.x - self.x * vec.z, self.x * vec.y - self.y * vec.x)
     }
 }
-

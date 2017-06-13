@@ -25,20 +25,20 @@ class DrawNode: SKNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func touchDown(atPoint pos : CGPoint) {
+    func touchDown(atPoint pos: CGPoint) {
         path.move(to: pos)
         line.path = path.cgPath
         line.strokeColor = UIColor.red
         points.append(pos)
     }
     
-    func touchMoved(toPoint pos : CGPoint) {
+    func touchMoved(toPoint pos: CGPoint) {
         path.addLine(to: pos)
         line.path = path.cgPath
         points.append(pos)
     }
     
-    func touchUp(atPoint pos : CGPoint) {
+    func touchUp(atPoint pos: CGPoint) {
         path.addLine(to: pos)
         line.path = path.cgPath
         points.append(pos)
@@ -47,7 +47,7 @@ class DrawNode: SKNode {
     }
     
     func competePath() {
-        line.strokeColor = UIColor.yellow
+        line.strokeColor = .yellow
         let sprite = SKSpriteNode(texture: self.scene?.view?.texture(from: line))
         sprite.position = CGPoint(x: line.frame.origin.x + line.frame.width / 2, y: line.frame.origin.y + line.frame.height / 2)
         nodes.append(sprite)
@@ -59,4 +59,3 @@ class DrawNode: SKNode {
         line.strokeColor = UIColor.red
     }
 }
-

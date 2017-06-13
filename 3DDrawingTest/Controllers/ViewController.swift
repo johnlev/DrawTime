@@ -13,26 +13,25 @@ import ARKit
 import Foundation
 import MultipeerConnectivity
 
-class ViewController: UIViewController, DrawNodeDelegate {
+protocol DrawingViewControllerDelegate: class {
+    func addUser(name: String, color: UIColor, peerID: MCPeerID)
+    func removeUser(peerID: MCPeerID)
+}
+
+class ViewController: UIViewController {
     
     override var prefersStatusBarHidden: Bool {
         return true
     }
     
-    func addUser(name: String, color: UIColor, peerID: MCPeerID) {
-        self.delegate.addUser(name: name, color: color, peerID: peerID)
-    }
-    func removeUser( peerID: MCPeerID) {
-        self.delegate.removeUser(peerID: peerID)
-    }
-    
     var name: String!
     var color: UIColor!
-    var delegate: DrawingViewControllerDelegate!
+    weak var delegate: DrawingViewControllerDelegate?
     
     var canvasTexture: SKScene = SKScene()
     var canvasNode = SCNNode()
     let pixelsPerMeter = CGFloat(1200)
+    
     // TODO: Convert canvasTexture into a let that's set ini init
     @IBOutlet var sceneView: ARSCNView!
     
@@ -52,23 +51,9 @@ class ViewController: UIViewController, DrawNodeDelegate {
         
         // Show statistics such as fps and timing information
         //sceneView.showsStatistics = true
+        
+        // set up the scene
         setupScene()
-        
-        switch self.color {
-        case UIColor.yellow:
-            print("initially Yellow")
-        case UIColor.red:
-            print("initially Red")
-        case UIColor.blue:
-            print("initially Blue")
-        case UIColor.green:
-            print("initially Green")
-        default:
-            print("initially Yellow")
-        }
-        
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,14 +85,11 @@ class ViewController: UIViewController, DrawNodeDelegate {
         sceneView.preferredFramesPerSecond = 60
     }
     
+    // TODO: Add plane restart like demo application
     func restartPlaneDetection() {
-        
     }
     
-    
     fileprivate func setupPlane(at: SCNVector3) {
-        // Create a new scene
-        //let scene = SCNScene(named: "art.scnassets/ship.scn")!
         
         // Set the scene to the view
         let scene = SCNScene()
@@ -142,48 +124,10 @@ class ViewController: UIViewController, DrawNodeDelegate {
         let background = SKSpriteNode(color: UIColor.gray.withAlphaComponent(0.5), size: canvasTexture.size)
         canvasTexture.addChild(background)
         background.run(SKAction.fadeAlpha(to: 0.0, duration: 3.0))
-        
     }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
-    }
-    
-    // MARK: - ARSCNViewDelegate
-    
-    /*
-     // Override to create and configure nodes for anchors added to the view's session.
-     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-     let node = SCNNode()
-     
-     return node
-     }
-     */
-    
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
-        
-    }
-    
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
-    }
-    
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
-        
-    }
-    
 }
 
 extension ViewController: ARSCNViewDelegate {
-    
-    //    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-    //        print("TRIGGERED")
-    //    }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         // This visualization covers only detected planes.
@@ -200,15 +144,14 @@ extension ViewController: ARSCNViewDelegate {
                 print(String(describing: location), String(describing: self.extentx), String(describing:self.extentz))
             }
         }
-        
     }
 }
 
-extension ViewController: ARSessionDelegate{
-    
-}
+// Might be needed later on
+extension ViewController: ARSessionDelegate {}
 
 extension ViewController {
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let coord = self.sceneView.hitTest((touches.first?.location(in: self.sceneView))!, options: nil)
         if coord.count > 0{
@@ -217,9 +160,6 @@ extension ViewController {
             self.drawNode!.touchDown(atPoint: drawingCoord)
             print(drawingCoord)
         }
-        //        else{
-        //            self.setupPlane(at: SCNVector3(-0.5, -0.5, 0.0))
-        //        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -241,8 +181,11 @@ extension ViewController {
     }
 }
 
-protocol DrawingViewControllerDelegate {
-    func addUser(name: String, color: UIColor, peerID: MCPeerID)
-    func removeUser(peerID: MCPeerID)
+extension ViewController: DrawNodeDelegate {
+    func addUser(name: String, color: UIColor, peerID: MCPeerID) {
+        self.delegate?.addUser(name: name, color: color, peerID: peerID)
+    }
+    func removeUser( peerID: MCPeerID) {
+        self.delegate?.removeUser(peerID: peerID)
+    }
 }
-

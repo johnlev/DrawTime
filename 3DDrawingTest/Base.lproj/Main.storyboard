@@ -50,6 +50,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="45l-V1-h0e" firstAttribute="centerX" secondItem="2EO-Vk-OM3" secondAttribute="centerX" id="1AM-LV-gCp"/>
+                            <constraint firstItem="2EO-Vk-OM3" firstAttribute="top" secondItem="vtU-QU-MhZ" secondAttribute="bottom" constant="60" id="3gK-Ep-Ida"/>
                             <constraint firstItem="Msa-3E-l1T" firstAttribute="top" secondItem="45l-V1-h0e" secondAttribute="bottom" constant="70" id="8et-0R-Qn0"/>
                             <constraint firstItem="45l-V1-h0e" firstAttribute="top" secondItem="2EO-Vk-OM3" secondAttribute="bottom" constant="50" id="9XL-2l-86P"/>
                             <constraint firstItem="Msa-3E-l1T" firstAttribute="centerX" secondItem="ZKq-6i-Vmx" secondAttribute="centerX" id="Etw-M6-yqx"/>
@@ -60,7 +61,6 @@
                             <constraint firstItem="45l-V1-h0e" firstAttribute="trailing" secondItem="2EO-Vk-OM3" secondAttribute="trailing" id="LL8-EX-du9"/>
                             <constraint firstItem="2EO-Vk-OM3" firstAttribute="centerX" secondItem="ZKq-6i-Vmx" secondAttribute="centerX" id="M8Z-qC-pQz"/>
                             <constraint firstItem="45l-V1-h0e" firstAttribute="top" secondItem="2EO-Vk-OM3" secondAttribute="bottom" constant="50" id="Owd-iI-Os4"/>
-                            <constraint firstItem="2EO-Vk-OM3" firstAttribute="top" secondItem="vtU-QU-MhZ" secondAttribute="bottom" constant="60" id="WQA-QJ-iR4"/>
                             <constraint firstItem="AmT-U8-U18" firstAttribute="top" secondItem="Msa-3E-l1T" secondAttribute="bottom" constant="55" id="Xbe-i1-cWg"/>
                             <constraint firstItem="AmT-U8-U18" firstAttribute="top" secondItem="Msa-3E-l1T" secondAttribute="bottom" constant="55" id="Zc3-Uk-F1M"/>
                         </constraints>

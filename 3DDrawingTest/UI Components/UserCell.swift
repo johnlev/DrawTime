@@ -12,6 +12,4 @@ class UserCell: UICollectionViewCell {
     
     @IBOutlet weak var colorView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
-    
-    
 }

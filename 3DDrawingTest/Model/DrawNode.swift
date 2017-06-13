@@ -23,7 +23,7 @@ class DrawNode: SKNode, DataEngineDelegate {
     var lineWidth = CGFloat(10)
     
     private var dataEngine: DataEngine
-    var delegate: DrawNodeDelegate!
+    weak var delegate: DrawNodeDelegate?
 
     var color = UIColor.yellow
     var userName: String!
@@ -35,7 +35,6 @@ class DrawNode: SKNode, DataEngineDelegate {
     init(name: String, color: UIColor) {
         
         self.dataEngine = DataEngine(name: name, color: color)
-        
         
         super.init()
         self.name = name
@@ -61,14 +60,13 @@ class DrawNode: SKNode, DataEngineDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     func drawNode(points: [CGPoint], color: UIColor) {
         // self.addChild(node)
         self.drawPath(pointsToDraw: points, color: color)
     } 
 
     /// Handles the touch down event
-    func touchDown(atPoint pos : CGPoint) {
+    func touchDown(atPoint pos: CGPoint) {
         // Add the point to the path and update the line
         path.move(to: pos)
         line.path = path.cgPath
@@ -82,7 +80,7 @@ class DrawNode: SKNode, DataEngineDelegate {
     }
     
     /// Handles the touch move event
-    func touchMoved(toPoint pos : CGPoint) {
+    func touchMoved(toPoint pos: CGPoint) {
         // Add the point to the path and update the line
         path.addLine(to: pos)
         line.path = path.cgPath
@@ -91,7 +89,7 @@ class DrawNode: SKNode, DataEngineDelegate {
     }
     
     /// Handles the touch up event
-    func touchUp(atPoint pos : CGPoint) {
+    func touchUp(atPoint pos: CGPoint) {
         path.addLine(to: pos)
         line.path = path.cgPath
         points.append(pos)
@@ -129,15 +127,15 @@ class DrawNode: SKNode, DataEngineDelegate {
     }
     
     func addUser(name: String, color: UIColor, peerID: MCPeerID) {
-        self.delegate.addUser(name: name, color: color, peerID: peerID)
+        delegate?.addUser(name: name, color: color, peerID: peerID)
     }
     
     func removeUser(peerID: MCPeerID) {
-        self.delegate.removeUser(peerID: peerID)
+        delegate?.removeUser(peerID: peerID)
     }
 }
 
-protocol DrawNodeDelegate {
+protocol DrawNodeDelegate: class {
     func addUser(name: String, color: UIColor, peerID: MCPeerID)
     func removeUser(peerID: MCPeerID)
 }

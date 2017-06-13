@@ -14,13 +14,13 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
     
     // Data
     var nodes = NodeStack()
-    var delegate: DataEngineDelegate!
+    weak var delegate: DataEngineDelegate?
     
     // Connectivity
     private let myPeerId = MCPeerID(displayName: UIDevice.current.name)
-    private let serviceAdvertiser : MCNearbyServiceAdvertiser
-    private let serviceBrowser : MCNearbyServiceBrowser
-    lazy var session : MCSession = {
+    private let serviceAdvertiser: MCNearbyServiceAdvertiser
+    private let serviceBrowser: MCNearbyServiceBrowser
+    lazy var session: MCSession = {
         let session = MCSession(peer: self.myPeerId, securityIdentity: nil, encryptionPreference: .none)
         session.delegate = self
         return session
@@ -100,7 +100,6 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
         print("didFinishReceivingResourceWithName")
     }
     
-    
     // Node handling methods - Custom
     func sendNode(_ node: SKSpriteNode){
         if session.connectedPeers.count > 0 {
@@ -127,4 +126,3 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
     // Called when a peer sends a node (TODO)
     @objc optional func removeNode(_ node: SKSpriteNode)
 }
-
