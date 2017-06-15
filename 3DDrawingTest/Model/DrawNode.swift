@@ -10,7 +10,21 @@ import SpriteKit
 import GameplayKit
 import MultipeerConnectivity
 
-class DrawNode: SKNode, DataEngineDelegate {
+// Storage Container for Node Queue
+class DrawNodeData {
+    
+    let color: UIColor
+    var points: [CGPoint]
+    let lineWidth = CGFloat(10)
+    
+    init(color: UIColor, points: [CGPoint]){
+        self.color = color
+        self.points = points
+    }
+    
+}
+
+class DrawNode: SKNode, DataEngineDrawingDelegate {
     
     // Store the path in a Bezier path
     private var path = UIBezierPath()
@@ -18,39 +32,35 @@ class DrawNode: SKNode, DataEngineDelegate {
     private var line = SKShapeNode()
     // Stores all previously made drawings
     private var nodes = [SKSpriteNode]()
-    // All the points in this line
-    private var points = [CGPoint]()
-    var lineWidth = CGFloat(10)
+    // Stores upcoming drawings
+    private var nodeQueue = [DrawNodeData]()
+    private var currentNode: DrawNodeData!
+    // Boolean indicating a draw is in progress
+    private var isDrawing = false
     
-    private var dataEngine: DataEngine
-    weak var delegate: DrawNodeDelegate?
-
-    var color = UIColor.yellow
-    var userName: String!
+    
+    private weak var dataEngine: DataEngine!
     
     // For custom texturization
     var containingView: SKView?
     
     /// Initialize
-    init(name: String, color: UIColor) {
+    init(dataEngine: DataEngine) {
         
-        self.dataEngine = DataEngine(name: name, color: color)
+        self.dataEngine = dataEngine
         
         super.init()
-        self.name = name
-        self.color = color
-        self.dataEngine.delegate = self
+        self.dataEngine.drawingDelegate = self
         self.addChild(line)
     }
     
     /// Provide custom view for texurizing
-    init(view: SKView, name: String, color: UIColor) {
-        self.dataEngine = DataEngine(name: name, color: color)
+    init(view: SKView, dataEngine: DataEngine) {
+        
+        self.dataEngine = dataEngine
         
         super.init()
-        self.name = name
-        self.color = color
-        self.dataEngine.delegate = self
+        self.dataEngine.drawingDelegate = self
         containingView = view
         self.addChild(line)
     }
@@ -61,22 +71,21 @@ class DrawNode: SKNode, DataEngineDelegate {
     }
     
     func drawNode(points: [CGPoint], color: UIColor) {
-        // self.addChild(node)
-        self.drawPath(pointsToDraw: points, color: color)
+        self.drawPath(DrawNodeData(color: color, points: points))
     } 
 
     /// Handles the touch down event
     func touchDown(atPoint pos: CGPoint) {
+        // Start the draw
+        self.isDrawing = true
+        self.currentNode = DrawNodeData(color: self.dataEngine.color, points: [CGPoint]())
+        
         // Add the point to the path and update the line
         path.move(to: pos)
         line.path = path.cgPath
         
         // Save the point
-        points.append(pos)
-        
-        // Set up the line's style
-        line.strokeColor = color
-        line.lineWidth = lineWidth
+        self.currentNode.points.append(pos)
     }
     
     /// Handles the touch move event
@@ -85,31 +94,30 @@ class DrawNode: SKNode, DataEngineDelegate {
         path.addLine(to: pos)
         line.path = path.cgPath
         // Save...
-        points.append(pos)
+        self.currentNode.points.append(pos)
     }
     
     /// Handles the touch up event
     func touchUp(atPoint pos: CGPoint) {
         path.addLine(to: pos)
         line.path = path.cgPath
-        points.append(pos)
+        self.currentNode.points.append(pos)
         
         // Called to legitimitize the drawing
-        self.competePath()
+        self.competePath(self.currentNode)
+        self.isDrawing = false
     }
     
-    func competePath() {
+    func competePath(_ nodeData: DrawNodeData) {
         // Yellow to indicate that it is a node
-        self.dataEngine.color = self.color
-        self.dataEngine.sendNode(points)
-        self.drawPath(pointsToDraw: points, color: self.color)
+        self.dataEngine.sendNode(nodeData.points)
+        self.drawPath(nodeData)
     }
     
-    func drawPath(pointsToDraw: [CGPoint], color: UIColor){
-        self.points = pointsToDraw
-        let newLine = SKShapeNode(splinePoints: &points, count: pointsToDraw.count)
-        newLine.lineWidth = lineWidth
-        newLine.strokeColor = color
+    func drawPath(_ nodeData: DrawNodeData){
+        let newLine = SKShapeNode(splinePoints: &nodeData.points, count: nodeData.points.count)
+        newLine.lineWidth = nodeData.lineWidth
+        newLine.strokeColor = nodeData.color
         
         // Make a sprite of it
         let sprite = SKSpriteNode(texture: (self.containingView ?? SKView()).texture(from: newLine))
@@ -120,22 +128,14 @@ class DrawNode: SKNode, DataEngineDelegate {
         
         // Reset the path and move the line on top of the new nodes
         path = UIBezierPath()
-        points = []
+        self.currentNode = DrawNodeData(color: self.dataEngine.color, points: [CGPoint]())
         line.path = path.cgPath
         line.zPosition += 1
-        line.strokeColor = UIColor.red
+        line.strokeColor = self.dataEngine.color
+        
+        if(self.nodeQueue.count > 0){
+            let nextNode = self.nodeQueue.removeFirst()
+            self.drawPath(nextNode)
+        }
     }
-    
-    func addUser(name: String, color: UIColor, peerID: MCPeerID) {
-        delegate?.addUser(name: name, color: color, peerID: peerID)
-    }
-    
-    func removeUser(peerID: MCPeerID) {
-        delegate?.removeUser(peerID: peerID)
-    }
-}
-
-protocol DrawNodeDelegate: class {
-    func addUser(name: String, color: UIColor, peerID: MCPeerID)
-    func removeUser(peerID: MCPeerID)
 }

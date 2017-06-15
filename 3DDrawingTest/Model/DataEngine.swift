@@ -10,25 +10,27 @@ import Foundation
 import SpriteKit
 import MultipeerConnectivity
 
-/// Protocol to allow saving and receiving drawings
-@objc protocol DataEngineDelegate: class {
-    // Called when a peer sends a drawing that should be shown
-    func drawNode(points: [CGPoint], color: UIColor)
-    
+/// Protocol to allow managing the connection
+@objc protocol DataEngineConnectionDelegate: class {
     // Called when peers connect and disconnect
     func addUser(name: String, color: UIColor, peerID: MCPeerID)
     func removeUser(peerID: MCPeerID)
     
-    // Called when a peer sends a node (TODO)
-    @objc optional func removeNode(_ node: SKSpriteNode)
+}
+
+/// Protocol to allow saving and receiving drawings
+@objc protocol DataEngineDrawingDelegate: class {
+    // Called when a peer sends a drawing that should be shown
+    func drawNode(points: [CGPoint], color: UIColor)
+    
 }
 
 class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBrowserDelegate, MCSessionDelegate {
     
     // Data
-    // var nodes = NodeStack()
     var nodes = [[CGPoint]]()
-    weak var delegate: DataEngineDelegate?
+    weak var connectionDelegate: DataEngineConnectionDelegate?
+    weak var drawingDelegate: DataEngineDrawingDelegate?
     var name: String!
     var color: UIColor!
     
@@ -98,7 +100,7 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
             }
             self.addUser()
         } else if state == MCSessionState.notConnected {
-            delegate?.removeUser(peerID: peerID)
+            connectionDelegate?.removeUser(peerID: peerID)
         }
     }
     
@@ -110,9 +112,9 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
         
         switch receivedNode.type {
         case "pointData":
-            delegate?.drawNode(points: receivedNode.pointData, color: receivedNode.color)
+            drawingDelegate?.drawNode(points: receivedNode.pointData, color: receivedNode.color)
         case "addUser":
-            delegate?.addUser(name: receivedNode.name, color: receivedNode.color, peerID: peerID)
+            connectionDelegate?.addUser(name: receivedNode.name, color: receivedNode.color, peerID: peerID)
         default:
             break
         }
@@ -136,10 +138,7 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
         dataPacket.name = self.name
         dataPacket.color = self.color
         
-        print("Attempting to Encode Data")
         let dataToSend = NSKeyedArchiver.archivedData(withRootObject: dataPacket)
-        print("Data Encoded")
-        // let dataToSend = NSKeyedArchiver.archivedData(withRootObject: node)
         do {
             try self.session.send(dataToSend, toPeers: session.connectedPeers, with: MCSessionSendDataMode.reliable)
         }
@@ -152,25 +151,37 @@ class DataEngine: NSObject, MCNearbyServiceAdvertiserDelegate, MCNearbyServiceBr
     func sendNode(_ node: [CGPoint]){
         
         self.nodes.append(node)
-        print("Attmepting to Encode Data")
         
         let dataPacket = DataPacket()
         dataPacket.type = "pointData"
         dataPacket.pointData = node
-        
-//        testColor()
-        
         dataPacket.color = self.color
         
-        print("Attempting to Encode Data")
         let dataToSend = NSKeyedArchiver.archivedData(withRootObject: dataPacket)
         print("Data Encoded")
-        // let dataToSend = NSKeyedArchiver.archivedData(withRootObject: node)
+        
         do {
             try self.session.send(dataToSend, toPeers: session.connectedPeers, with: MCSessionSendDataMode.reliable)
         }
         catch let error {
             print("Error for sending: \(error)")
         }
+    }
+}
+
+extension Data {
+    init(reading input: InputStream) {
+        self.init()
+        input.open()
+        
+        let bufferSize = 1024
+        let buffer = UnsafeMutablePointer<UInt8>.allocate(capacity: bufferSize)
+        while input.hasBytesAvailable {
+            let read = input.read(buffer, maxLength: bufferSize)
+            self.append(buffer, count: read)
+        }
+        buffer.deallocate(capacity: bufferSize)
+        
+        input.close()
     }
 }

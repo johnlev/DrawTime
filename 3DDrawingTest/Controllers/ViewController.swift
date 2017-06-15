@@ -13,20 +13,13 @@ import ARKit
 import Foundation
 import MultipeerConnectivity
 
-protocol DrawingViewControllerDelegate: class {
-    func addUser(name: String, color: UIColor, peerID: MCPeerID)
-    func removeUser(peerID: MCPeerID)
-}
-
 class ViewController: UIViewController {
     
     override var prefersStatusBarHidden: Bool {
         return true
     }
     
-    var name: String!
-    var color: UIColor!
-    weak var delegate: DrawingViewControllerDelegate?
+    weak var dataEngine: DataEngine!
     
     var canvasTexture: SKScene = SKScene()
     var canvasNode = SCNNode()
@@ -99,10 +92,7 @@ class ViewController: UIViewController {
         //light.castsShadow = true
         light.spotInnerAngle = CGFloat(2 * Double.pi)
         
-        drawNode = DrawNode(name: self.name, color: self.color)
-        drawNode!.delegate = self
-        drawNode!.userName = self.name
-        drawNode!.color = self.color
+        drawNode = DrawNode(dataEngine: self.dataEngine)
         drawNode!.containingView = canvasTexture.view
         drawNode!.containingView = canvasTexture.view
         sceneView.scene = scene
@@ -178,14 +168,5 @@ extension ViewController {
                                         y: coord[0].textureCoordinates(withMappingChannel: 0).y * extentz * pixelsPerMeter)
             self.drawNode!.touchUp(atPoint: drawingCoord)
         }
-    }
-}
-
-extension ViewController: DrawNodeDelegate {
-    func addUser(name: String, color: UIColor, peerID: MCPeerID) {
-        self.delegate?.addUser(name: name, color: color, peerID: peerID)
-    }
-    func removeUser( peerID: MCPeerID) {
-        self.delegate?.removeUser(peerID: peerID)
     }
 }

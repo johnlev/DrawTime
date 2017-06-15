@@ -9,15 +9,13 @@
 import UIKit
 import MultipeerConnectivity
 
-class ContainerViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, DrawingViewControllerDelegate {
+class ContainerViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, DataEngineConnectionDelegate {
     
     @IBOutlet weak var sceneView: UIView!
     @IBOutlet weak var userCollectionView: UICollectionView!
     
-    var color: UIColor!
-    var name: String!
-    
     var drawingUsers = [DrawingUser]()
+    var dataEngine: DataEngine!
     
     func addUser(name: String, color: UIColor, peerID: MCPeerID) {
         self.drawingUsers.append(DrawingUser(name: name, color: color, peerID: peerID))
@@ -67,7 +65,7 @@ class ContainerViewController: UIViewController, UICollectionViewDataSource, UIC
         self.userCollectionView.delegate = self
         self.userCollectionView.dataSource = self
         
-        let user = DrawingUser(name: name, color: color, peerID: MCPeerID(displayName: UIDevice.current.name))
+        let user = DrawingUser(name: self.dataEngine.name, color: self.dataEngine.color, peerID: MCPeerID(displayName: UIDevice.current.name))
          self.drawingUsers.append(user)
     }
     
@@ -78,8 +76,6 @@ class ContainerViewController: UIViewController, UICollectionViewDataSource, UIC
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         let destinationViewController = segue.destination as! ViewController
-        destinationViewController.delegate = self
-        destinationViewController.color = self.color
-        destinationViewController.name = self.name
+        destinationViewController.dataEngine = self.dataEngine
     }
 }

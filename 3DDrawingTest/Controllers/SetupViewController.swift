@@ -39,7 +39,6 @@ class SetupViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         let row = self.colorPicker.selectedRow(inComponent: 0)
         name = self.nameTextField.text ?? "👻"
         color = Constants.nodeColor[row].value
-        print("Setting color to: \(row)")
         
         self.performSegue(withIdentifier: "Go To BalckBoard Segue", sender: self)
     }
@@ -61,8 +60,7 @@ class SetupViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         // Pass the selected object to the new view controller.
         
         let destinationController = segue.destination as! ContainerViewController
-        
-        destinationController.name = self.name
-        destinationController.color = self.color
+        destinationController.dataEngine = DataEngine(name: self.name, color: self.color)
+        destinationController.dataEngine.connectionDelegate = destinationController
     }
 }
